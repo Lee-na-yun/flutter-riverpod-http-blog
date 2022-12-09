@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       // 라우트 설계 필요없음. GetX 사용할 예정
-      initialRoute: Routers.joinForm,
+      initialRoute: Routers.home,
       routes: {
         Routers.home: (context) => HomePage(),
         Routers.detail: (context) => DetailPage(),

@@ -9,9 +9,9 @@ class JoinPage extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>(); // formKey로 모든 inpufield를 제어 할 수 있음
 
   // Form 땡겨쓰기
-  final _username = TextEditingController();
-  final _password = TextEditingController();
-  final _email = TextEditingController();
+  final _username = TextEditingController(); // 추가
+  final _password = TextEditingController(); // 추가
+  final _email = TextEditingController(); // 추가
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -74,7 +74,9 @@ class JoinPage extends ConsumerWidget {
             },
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              uc.loginForm();
+            },
             child: Text("로그인 페이지로 이동"),
           ),
         ],

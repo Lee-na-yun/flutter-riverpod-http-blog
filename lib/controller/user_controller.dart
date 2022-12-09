@@ -22,6 +22,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
  * ViewModel 책임 : 데이터 담기
  */
 
+// controller는 무조건 Future<void> 붙이기
 final userController = Provider<UserController>((ref) {
   return UserController(ref);
 });
@@ -51,11 +52,29 @@ class UserController {
     }
   }
 
-  void loginForm() {
+  Future<void> loginForm() async {
     Navigator.popAndPushNamed(context, Routers.loginForm);
   }
 
-  void joinForm() {
+  Future<void> joinForm() async {
     Navigator.popAndPushNamed(context, Routers.joinForm);
+  }
+
+  Future<void> login({required String username, required String password}) async {
+    // 1. DTO 변환
+    LoginReqDto loginReqDto = LoginReqDto(username: username, password: password);
+
+    // 2. 통신 요청
+    ResponseDto responseDto = await _ref.read(userApiRepository).login(loginReqDto);
+
+    // 3. 비지니스 로직 처리
+    if (responseDto.code == 1) {
+      Navigator.popAndPushNamed(context, Routers.home);
+      // 4. 응답된 데이터를 ViewModel에 반영해야 한다면 통신 성공시에 추가하기
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("로그인 실패")),
+      );
+    }
   }
 }
